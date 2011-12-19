@@ -120,7 +120,7 @@ private
   end
 
   def compile_native_dependencies
-    `BUILD_DIR=#{build_path} sh Buildfile` if File.exist?("Buildfile")
+    `export BUILD_DIR=#{build_path}; sh Buildfile` if File.exist?("Buildfile")
   end
 
   # install the vendored ruby
