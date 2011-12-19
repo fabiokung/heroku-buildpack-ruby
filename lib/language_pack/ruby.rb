@@ -42,6 +42,7 @@ class LanguagePack::Ruby < LanguagePack::Base
 
   def compile
     Dir.chdir(build_path)
+    compile_native_dependencies
     install_ruby
     setup_language_pack_environment
     allow_git do
@@ -116,6 +117,10 @@ private
     end
     ENV["GEM_HOME"] = slug_vendor_base
     ENV["PATH"]     = "#{ruby_install_binstub_path}:#{default_config_vars["PATH"]}"
+  end
+
+  def compile_native_dependencies
+    `sh Buildfile` if File.exist?("Buildfile")
   end
 
   # install the vendored ruby
